@@ -62,6 +62,6 @@ const getUniquePhotoInfo = function (item, index) {
     ],
   };
 };
+// eslint-disable-next-line no-unused-vars
 const photoInfosNew = new Array(25).fill('').map(getUniquePhotoInfo);
 
-console.log(photoInfosNew);
