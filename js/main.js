@@ -1,3 +1,4 @@
+// точка входа
 // // https://learn.javascript.ru/task/random-int-min-max
 //
 // function randomInteger(min, max) {
@@ -11,7 +12,7 @@
 // const checkCommentLength = (comment, maxLenght) => (comment.lenght <= maxLenght);
 // checkCommentLength('nikita', 140);
 
-const RANDOM_MESSAGE = [
+const RANDOM_MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -19,7 +20,7 @@ const RANDOM_MESSAGE = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
-const RANDOM_NAME = [
+const RANDOM_NAMES = [
   'Никита',
   'Юлия',
   'Паха',
@@ -29,7 +30,7 @@ const RANDOM_NAME = [
   'Валентина',
 ];
 
-const RANDOM_DESCRIPTION = [
+const RANDOM_DESCRIPTIONS = [
   'фотография красивая',
   'фотография необычная',
   'фотография яркая',
@@ -42,26 +43,30 @@ function randomInteger(min, max) {
   const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 }
-randomInteger (1, 25);
 
 const getRandomArrayElement = (element) => element[_.random(0, element.length -1)];
 
+const AvatarName = {MIN: 1, MAX: 6};
+const RandomLike = {MIN: 15, MAX: 200};
+const GENERATED_OBJECTS = 25;
+const RANDOM_NUMBER = index + 1;
+
 const getUniquePhotoInfo = function (item, index) {
   return {
-    id: index + 1,
-    url: `photos/${index + 1}.jpg`,
-    description: getRandomArrayElement (RANDOM_DESCRIPTION),
-    likes: randomInteger (15, 200),
+    id: RANDOM_NUMBER,
+    url: `photos/${RANDOM_NUMBER}.jpg`,
+    description: getRandomArrayElement (RANDOM_DESCRIPTIONS),
+    likes: randomInteger (RandomLike.MIN, RandomLike.MAX),
     comments: [
       {
         id: _.shuffle(_.range(1,1001))[0],
-        avatar: `img/avatar-${randomInteger (1, 6)}.svg`,
-        message: getRandomArrayElement (RANDOM_MESSAGE),
-        name: getRandomArrayElement (RANDOM_NAME),
+        avatar: `img/avatar-${randomInteger (AvatarName.MIN, AvatarName.MAX)}.svg`,
+        message: getRandomArrayElement (RANDOM_MESSAGES),
+        name: getRandomArrayElement (RANDOM_NAMES),
       },
     ],
   };
 };
 // eslint-disable-next-line no-unused-vars
-const photoInfosNew = new Array(25).fill('').map(getUniquePhotoInfo);
+const photoInfosNew = new Array(GENERATED_OBJECTS).fill('').map(getUniquePhotoInfo);
 
