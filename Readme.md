@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Никита Шахович](https://up.htmlacademy.ru/javascript/23/user/1635751).
-* Наставник: [Максим Деев](https://htmlacademy.ru/profile/id685777).
+* Наставник: [Андрей Устименко](https://htmlacademy.ru/profile/spiritmoon).
 
 ---
 
