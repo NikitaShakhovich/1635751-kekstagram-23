@@ -39,6 +39,11 @@ const RANDOM_DESCRIPTIONS = [
   'фотография насыщенная',
 ];
 
+const AvatarName = {MIN: 1, MAX: 6};
+const RandomLike = {MIN: 15, MAX: 200};
+const GENERATED_QUANTITY_OBJECTS = 25;
+
+
 function randomInteger(min, max) {
   const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
@@ -46,12 +51,8 @@ function randomInteger(min, max) {
 
 const getRandomArrayElement = (element) => element[_.random(0, element.length -1)];
 
-const AvatarName = {MIN: 1, MAX: 6};
-const RandomLike = {MIN: 15, MAX: 200};
-const GENERATED_OBJECTS = 25;
-const RANDOM_NUMBER = index + 1;
-
 const getUniquePhotoInfo = function (item, index) {
+  const RANDOM_NUMBER = index + 1;
   return {
     id: RANDOM_NUMBER,
     url: `photos/${RANDOM_NUMBER}.jpg`,
@@ -68,5 +69,5 @@ const getUniquePhotoInfo = function (item, index) {
   };
 };
 // eslint-disable-next-line no-unused-vars
-const photoInfosNew = new Array(GENERATED_OBJECTS).fill('').map(getUniquePhotoInfo);
+const photoInfosNew = new Array(GENERATED_QUANTITY_OBJECTS).fill('').map(getUniquePhotoInfo);
 
