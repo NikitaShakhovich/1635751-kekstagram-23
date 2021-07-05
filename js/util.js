@@ -12,6 +12,6 @@ const getRandomArrayElement = (element) => element[_.random(0, element.length -1
 
 // проверка длины комментария
 // eslint-disable-next-line no-unused-vars
-const checkCommentLength = (comment, maxLenght) => (comment.lenght <= maxLenght);
+const checkCommentLength = (comment, maxLength) => (comment.length <= maxLength);
 
 export {randomInteger, getRandomArrayElement};
