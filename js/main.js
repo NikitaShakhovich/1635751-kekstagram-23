@@ -38,35 +38,34 @@ const RANDOM_DESCRIPTIONS = [
   'фотография насыщенная',
 ];
 
-const AvatarName = {MIN: 1, MAX: 6};
-const RandomLike = {MIN: 15, MAX: 200};
+const AvatarNameValue = {MIN: 1, MAX: 6};
+const NumberLikesValue = {MIN: 15, MAX: 200};
 const GENERATED_QUANTITY_OBJECTS = 25;
 
 
-function randomInteger(min, max) {
+function getRandomInteger(min, max) {
   const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 }
 
-const getRandomArrayElement = (element) => element[_.random(0, element.length -1)];
+const getRandomArrayElement = (arr) => arr[_.random(0, arr.length -1)];
 
 const getUniquePhotoInfo = function (item, index) {
-  const RANDOM_NUMBER = index + 1;
+  const INDEX = index + 1;
   return {
-    id: RANDOM_NUMBER,
-    url: `photos/${RANDOM_NUMBER}.jpg`,
-    description: getRandomArrayElement (RANDOM_DESCRIPTIONS),
-    likes: randomInteger (RandomLike.MIN, RandomLike.MAX),
+    id: INDEX,
+    url: `photos/${INDEX}.jpg`,
+    description: getRandomArrayElement(RANDOM_DESCRIPTIONS),
+    likes: getRandomInteger(NumberLikesValue.MIN, NumberLikesValue.MAX),
     comments: [
       {
         id: _.shuffle(_.range(1,1001))[0],
-        avatar: `img/avatar-${randomInteger (AvatarName.MIN, AvatarName.MAX)}.svg`,
-        message: getRandomArrayElement (RANDOM_MESSAGES),
-        name: getRandomArrayElement (RANDOM_NAMES),
+        avatar: `img/avatar-${getRandomInteger(AvatarNameValue.MIN, AvatarNameValue.MAX)}.svg`,
+        message: getRandomArrayElement(RANDOM_MESSAGES),
+        name: getRandomArrayElement(RANDOM_NAMES),
       },
     ],
   };
 };
 // eslint-disable-next-line no-unused-vars
-const photoInfosNew = new Array(GENERATED_QUANTITY_OBJECTS).fill('').map(getUniquePhotoInfo);
-
+const photoInfosNew = Array.from('o'.repeat(GENERATED_QUANTITY_OBJECTS)).map(getUniquePhotoInfo);
