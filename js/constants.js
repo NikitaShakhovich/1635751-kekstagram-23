@@ -26,10 +26,8 @@ const RANDOM_DESCRIPTIONS = [
   'фотография насыщенная',
 ];
 
+const AvatarNamesValidation = {MIN: 1, MAX: 6};
+const NumberLikesValidation = {MIN: 15, MAX: 200};
 const GENERATED_QUANTITY_OBJECTS = 25;
 
-const AvatarName = {MIN: 1, MAX: 6};
-
-const RandomLike = {MIN: 15, MAX: 200};
-
-export {RANDOM_DESCRIPTIONS, RANDOM_NAMES, RANDOM_MESSAGES, GENERATED_QUANTITY_OBJECTS, AvatarName, RandomLike};
+export {RANDOM_DESCRIPTIONS, RANDOM_NAMES, RANDOM_MESSAGES, GENERATED_QUANTITY_OBJECTS, AvatarNamesValidation, NumberLikesValidation};
