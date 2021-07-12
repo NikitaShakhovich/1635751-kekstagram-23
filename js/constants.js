@@ -16,7 +16,6 @@ const RANDOM_NAMES = [
   'Валерий',
   'Валентина',
 ];
-
 const RANDOM_DESCRIPTIONS = [
   'фотография красивая',
   'фотография необычная',
@@ -25,9 +24,8 @@ const RANDOM_DESCRIPTIONS = [
   'фотография солнечная',
   'фотография насыщенная',
 ];
+const avatarNamesValidation = {min: 1, max: 6};
+const numberLikesValidation = {min: 15, max: 200};
+const PHOTO_AMOUNT = 25;
 
-const AvatarNamesValidation = {MIN: 1, MAX: 6};
-const NumberLikesValidation = {MIN: 15, MAX: 200};
-const GENERATED_QUANTITY_OBJECTS = 25;
-
-export {RANDOM_DESCRIPTIONS, RANDOM_NAMES, RANDOM_MESSAGES, GENERATED_QUANTITY_OBJECTS, AvatarNamesValidation, NumberLikesValidation};
+export {RANDOM_DESCRIPTIONS, RANDOM_NAMES, RANDOM_MESSAGES, PHOTO_AMOUNT, avatarNamesValidation, numberLikesValidation};
