@@ -1,2 +1,2 @@
 // точка входа
-import './data.js';
+import './miniatures.js';

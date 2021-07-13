@@ -1,22 +1,26 @@
 // модуль, который создаёт данные.
-import {RANDOM_DESCRIPTIONS, RANDOM_NAMES, RANDOM_MESSAGES, GENERATED_QUANTITY_OBJECTS, AvatarNamesValidation, NumberLikesValidation} from './constants.js';
+import {RANDOM_DESCRIPTIONS, RANDOM_NAMES, RANDOM_MESSAGES, PHOTO_AMOUNT, avatarNamesValidation, numberLikesValidation} from './constants.js';
 import {getRandomInteger, getRandomArrayElement} from './util.js';
+
 const getUniquePhotoInfo = function (item, index) {
-  const ID = index + 1;
+  const id = index + 1;
   return {
-    id: ID,
-    url: `photos/${ID}.jpg`,
+    id: id,
+    url: `photos/${id}.jpg`,
     description: getRandomArrayElement(RANDOM_DESCRIPTIONS),
-    likes: getRandomInteger(NumberLikesValidation.MIN, NumberLikesValidation.MAX),
+    likes: getRandomInteger(numberLikesValidation.min, numberLikesValidation.max),
     comments: [
       {
         id: _.uniqueId(),
-        avatar: `img/avatar-${getRandomInteger(AvatarNamesValidation.MIN, AvatarNamesValidation.MAX)}.svg`,
+        avatar: `img/avatar-${getRandomInteger(avatarNamesValidation.min, avatarNamesValidation.max)}.svg`,
         message: getRandomArrayElement(RANDOM_MESSAGES),
         name: getRandomArrayElement(RANDOM_NAMES),
       },
     ],
   };
 };
+
 // eslint-disable-next-line no-unused-vars
-const photosInfosNew = Array.from('o'.repeat(GENERATED_QUANTITY_OBJECTS)).map(getUniquePhotoInfo);
+const getPhotosInfosNew = () => Array.from({ length: PHOTO_AMOUNT }, (value, index) => index).map(getUniquePhotoInfo);
+
+export {getPhotosInfosNew};
