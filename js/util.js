@@ -14,4 +14,7 @@ const getRandomArrayElement = (arr) => arr[_.random(0, arr.length -1)];
 // eslint-disable-next-line no-unused-vars
 const checkCommentLength = (comment, maxLength) => (comment.length <= maxLength);
 
-export {getRandomInteger, getRandomArrayElement};
+//проверка нажатой клавиши esc
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+export {getRandomInteger, getRandomArrayElement, isEscEvent};
