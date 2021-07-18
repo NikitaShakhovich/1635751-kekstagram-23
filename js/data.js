@@ -21,6 +21,6 @@ const getUniquePhotoInfo = function (item, index) {
 };
 
 // eslint-disable-next-line no-unused-vars
-const getPhotosInfosNew = () => Array.from({ length: PHOTO_AMOUNT }, (value, index) => index).map(getUniquePhotoInfo);
+const getPhotosInfos = () => Array.from({ length: PHOTO_AMOUNT }, (value, index) => index).map(getUniquePhotoInfo);
 
-export {getPhotosInfosNew};
+export {getPhotosInfos};
