@@ -1,25 +1,23 @@
-import {closeFullsize, openFullSize} from './toggle-fullsize.js';
+import {toggleFullSize} from './toggle-fullsize.js';
 import {isEscEvent} from './util.js';
-import {fillData} from './fill-data.js';
-import {photosInfo} from './miniatures.js';
+import {blockPictures, photosInfo} from './miniatures.js';
 
 const cancelButton = document.querySelector('.big-picture__cancel');
 
-window.addEventListener('click', (evt) => {
-  if (evt.target.closest('.picture')) {
-    const pictureElement = evt.target.closest('.picture');
+blockPictures.addEventListener('click', (evt) => {
+  const pictureElement = evt.target.closest('.picture');
+  if (pictureElement) {
     const pictureIndex = pictureElement.dataset.index;
     evt.preventDefault();
-    openFullSize();
-    fillData(photosInfo[pictureIndex]);
+    toggleFullSize(photosInfo[pictureIndex]);
   }
 });
 
-window.addEventListener('keydown', (evt) => {
+document.addEventListener('keydown', (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
-    closeFullsize();
+    toggleFullSize();
   }
 });
 
-cancelButton.addEventListener('click', closeFullsize);
+cancelButton.addEventListener('click', toggleFullSize);
