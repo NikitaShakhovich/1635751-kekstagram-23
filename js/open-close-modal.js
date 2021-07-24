@@ -2,19 +2,24 @@
 const commentPhoto = document.querySelector('#comments')
   .content
   .querySelector('.social__comment');
-const bigPicture = document.querySelector('.big-picture');
+export const bigPicture = document.querySelector('.big-picture');
 const blockCommentFragment = document.createDocumentFragment();
 const bodyElement = document.querySelector('body');
 const commentCounter = bigPicture.querySelector('.social__comment-count');
-const blockComments = bigPicture.querySelector('.social__comments');
 const loaderCounter = bigPicture.querySelector('.comments-loader');
+const buttonCommentLoader = bigPicture.querySelector('.social__comments-loader');
+
+const blockComments = bigPicture.querySelector('.social__comments');
 const descriptionPhotoElement = bigPicture.querySelector('.social__caption');
 const bigPictureElement= bigPicture.querySelector('.big-picture__img img');
 const likesCounterElement = bigPicture.querySelector('.likes-count');
 const countCommentsElement = bigPicture.querySelector('.comments-count');
 
+// переменная для дубликата масива
+let actualComments = [];
+
 // прохожу по массиву комметариев пример: [{avatar: 'green', name: 'Жакуй Грин', message: 'Я - Жакуй гРИН пройдоха'}];
-const createCommentElement = (dataComment) => dataComment.map((value) => {
+const createCommentElements = (dataComment) => dataComment.map((value) => {
   // диструкторизация. вытягиваю из элемента массива нужные мне переменные для того чтобы записать их в нужные места;
   const {avatar, name, message} = value;
   // делаю копию шаблона;
@@ -31,34 +36,54 @@ const createCommentElement = (dataComment) => dataComment.map((value) => {
   return commentElement;
 });
 
+const uploadComments = () => {
+  if (actualComments.length > 0) {
+    // "открываю" загрузку комметариев
+    loaderCounter.classList.remove('hidden');
+    // передаю 5ть комментариев для отображения
+    const visibleComments = actualComments.slice(0, 5);
+    // создаю для 5ти комментариев DOM
+    const newCommentElements = createCommentElements(visibleComments);
+
+    // проходим по массиву фоичем при каждой итерации добавляя итем
+    newCommentElements.forEach((item) => {
+      // добавляем в изолированный блокфрагмент значения
+      blockCommentFragment.appendChild(item);
+    });
+    // добавляем мз блокфрагмента в индекс
+    blockComments.appendChild(blockCommentFragment);
+    // удаляем из переменной 5ть выведенных комментариев
+    actualComments.splice(0, 5);
+    // счётчик комментариев blockComments.childElementCount - количество 'li'
+    commentCounter.textContent = `${blockComments.childElementCount} из ${blockComments.childElementCount + actualComments.length} коментариев`;
+
+    // если остаток createCommentElements.length === 0, то блокируем загрузку комментов
+    if (actualComments.length === 0) {
+      loaderCounter.classList.add('hidden');
+    }
+  }
+};
+
 const openFullSizeModal = (data) => {
   bigPicture.classList.remove('hidden');
-  commentCounter.classList.add('hidden');
-  loaderCounter.classList.add('hidden');
   bodyElement.classList.add('modal-open');
-
   // добавляю вставки;
   descriptionPhotoElement.textContent = data.description;
   bigPictureElement.setAttribute('src', data.url);
   likesCounterElement.textContent = data.likes;
   countCommentsElement.textContent = data.comments.length;
-  // тут лежит возвращенным массив дом элементов
-  const newCommentElement = createCommentElement(data.comments);
-  // проходим по массиву фоичем при каждой итерации добавляя итем
-
-  newCommentElement.forEach((item) => {
-    // добавляем в изолированный блокфрагмент значения
-    blockCommentFragment.appendChild(item);
-  });
-  // добавляем мз блокфрагмента в индекс
-  blockComments.appendChild(blockCommentFragment);
+  blockComments.textContent = '';
+  // вносим в переменную actualComments дубликат массива
+  actualComments = data.comments.slice();
+  uploadComments();
 };
 
 const closeFullSizeModal = () => {
   bigPicture.classList.add('hidden');
-  commentCounter.classList.remove('hidden');
-  loaderCounter.classList.remove('hidden');
   bodyElement.classList.remove('modal-open');
 };
 
+buttonCommentLoader.addEventListener('click', uploadComments);
+
 export {closeFullSizeModal, openFullSizeModal};
+

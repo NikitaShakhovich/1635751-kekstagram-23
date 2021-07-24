@@ -26,6 +26,7 @@ export const RANDOM_DESCRIPTIONS = [
 ];
 export const avatarNamesValidation = {min: 1, max: 6};
 export const numberLikesValidation = {min: 15, max: 200};
+export const numberCommentsValidation = {min: 2, max: 15};
 export const PHOTO_AMOUNT = 25;
 export const HASHTAGS_TEST = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
 export const MAX_HASHTAGS = 5;
