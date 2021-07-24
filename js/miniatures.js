@@ -12,21 +12,24 @@ const getPhotoElements = (data) => {
   return data.map((photo, index) => {
     const {url, likes, comments} = photo;
     const pictureElement = templatePicture.cloneNode(true);
+    const imgPictureElement = pictureElement.querySelector('.picture__img');
+    const likesPictureElement = pictureElement.querySelector('.picture__likes');
+    const commentsPictureElement = pictureElement.querySelector('.picture__comments');
     pictureElement.setAttribute('data-index', index);
-    pictureElement.querySelector('.picture__img').setAttribute('src', url);
-    pictureElement.querySelector('.picture__likes').textContent = likes;
-    pictureElement.querySelector('.picture__comments').textContent = comments.length;
+    imgPictureElement.setAttribute('src', url);
+    likesPictureElement.textContent = likes;
+    commentsPictureElement.textContent = comments.length;
     return pictureElement;
   });
 };
 
-const appendPhotoElements = (elements, fragmentBlock, targetBlock) => {
+const appendPhotoElements = (elements) => {
   elements.forEach((item) => {
-    fragmentBlock.appendChild(item);
+    blockPicturesFragment.appendChild(item);
   });
-  targetBlock.appendChild(fragmentBlock);
+  blockPictures.appendChild(blockPicturesFragment);
 };
 
 const photoElements = getPhotoElements(photosInfo);
 
-appendPhotoElements(photoElements, blockPicturesFragment, blockPictures);
+appendPhotoElements(photoElements);
