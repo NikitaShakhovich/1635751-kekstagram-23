@@ -9,6 +9,7 @@ const COMMENT_LENGTH_EXCEEDED = 'Длина комметария не может
 const SCALE_VALUE_STEP = 25;
 const MAX_VALUE = 100;
 const MIN_VALUE = 25;
+const sliderConfig = {start: [1], step: 0.1, connect: 'lower', behaviour: 'tap', range: {'min': 0, 'max': 1}};
 
 const form = document.querySelector('.img-upload__form');
 const scaleSmaller = form.querySelector('.scale__control--smaller');
@@ -22,6 +23,16 @@ export const inputHashtagsElement = form.querySelector('.text__hashtags');
 export const inputDescription = form.querySelector('.text__description');
 
 let typeEffectValue = '';
+
+export const setDefaultValue = () => {
+  sliderEffect.noUiSlider.set(1);
+  sliderEffect.setAttribute('disabled', true);
+  idEffectNone.checked = 'true';
+  scaleValueElement.value = '100%';
+  photoUploadPreview.removeAttribute('style');
+  photoUploadPreview.setAttribute('class', 'img-upload__preview');
+  photoUploadPreview.classList.add('effects__preview--none');
+};
 
 const onScaleButtonClick = (evt) => {
   // вношу в переменную значение input с убранным знаком %
@@ -76,7 +87,7 @@ const onChangeFilter = (evt) => {
   }
 };
 
-const onValidateFormDescription = () => {
+const onFormDescriptionValidate = () => {
   if(inputDescription.value.length > MAX_SYMBOL_DESCRIPTION) {
     inputDescription.setCustomValidity(COMMENT_LENGTH_EXCEEDED);
   } else {
@@ -85,15 +96,14 @@ const onValidateFormDescription = () => {
   inputDescription.reportValidity();
 };
 
-const onValidateFormHashtags = () => {
+const onFormHashtagsValidate = () => {
   // если значение инпута неравно пустой строке, возвращаем true
-  if (inputHashtagsElement.value !== '') {
+  if (!inputHashtagsElement.value) {
     // переменной хэштегс присваиваем значение ипута с убранными заглавными буквами, убранными пробелами в начале и конце
     // преобразованным в массив
     const hashtags = inputHashtagsElement.value.toLowerCase().trim().split(' ');
     // создаём дубликат хэштегов (повторяющийся значения в дубликат не включаются)
     const copyHashtags = new Set(hashtags);
-
     //перебераем значения массива методом фоич
     hashtags.forEach((item) => {
       // если значение проходит проверку HASHTAGS_TEST, возвращаем false
@@ -119,7 +129,7 @@ const onValidateFormHashtags = () => {
   }
 };
 
-noUiSlider.create(sliderEffect, {start: [1], step: 0.1, connect: 'lower', behaviour: 'tap', range: {'min': 0, 'max': 1}});
+noUiSlider.create(sliderEffect, sliderConfig);
 sliderEffect.noUiSlider.on('update', ( values, handle ) => {
   sliderEffect.removeAttribute('disabled');
   // значению переменной приравниваем текущее значение ползунка
@@ -158,5 +168,5 @@ sliderEffect.noUiSlider.on('update', ( values, handle ) => {
 scaleSmaller.addEventListener('click', onScaleButtonClick);
 scaleBigger.addEventListener('click', onScaleButtonClick);
 form.addEventListener('change', onChangeFilter);
-inputHashtagsElement.addEventListener('input', onValidateFormHashtags);
-inputDescription.addEventListener('input', onValidateFormDescription);
+inputHashtagsElement.addEventListener('input', onFormHashtagsValidate);
+inputDescription.addEventListener('input', onFormDescriptionValidate);

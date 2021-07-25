@@ -1,7 +1,7 @@
-import {closeFullSizeModal, openFullSizeModal} from './open-close-modal.js';
+import {closeFullSizeModal, openFullSizeModal} from './big-picture.js';
 import {isEscEvent} from './util.js';
 import {blockPictures, photosInfo} from './miniatures.js';
-import {sliderEffect, photoUploadPreview, scaleValueElement, idEffectNone, inputHashtagsElement, inputDescription} from './form.js';
+import {setDefaultValue, inputHashtagsElement, inputDescription} from './form.js';
 
 const uploadCloseBtn = document.querySelector('.img-upload__cancel');
 const inputUpload = document.querySelector('.img-upload__input');
@@ -41,14 +41,8 @@ inputUpload.addEventListener('click', (evt) => {
   evt.preventDefault();
   imgEditFormElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
-  //блокирует слайдер на стартовом эфекте в форм.js
-  sliderEffect.noUiSlider.set(1);
-  sliderEffect.setAttribute('disabled', true);
-  idEffectNone.checked = 'true';
-  photoUploadPreview.removeAttribute('style');
-  scaleValueElement.value = '100%';
-  photoUploadPreview.setAttribute('class', 'img-upload__preview');
-  photoUploadPreview.classList.add('effects__preview--none');
+  //defaulтные значения на стартовом эффекте в форм.js
+  setDefaultValue();
 });
 
 uploadCloseBtn.addEventListener('click', closeImgEditModal);
