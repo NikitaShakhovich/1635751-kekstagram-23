@@ -39,7 +39,7 @@ const getUniquePhotoInfo = function (item, index) {
     url: `photos/${id}.jpg`,
     description: getRandomArrayElement(RANDOM_DESCRIPTIONS),
     likes: getRandomInteger(numberLikesValidation.min, numberLikesValidation.max),
-    comments: Array.from({ length: getRandomInteger(numberCommentsValidation) }, (value, commentIndex) => commentIndex).map(() => ({
+    comments: Array.from({length: getRandomInteger(numberCommentsValidation.min, numberCommentsValidation.max)}, (value, commentIndex) => commentIndex).map(() => ({
       id: _.uniqueId(),
       avatar: `img/avatar-${getRandomInteger(avatarNamesValidation.min, avatarNamesValidation.max)}.svg`,
       message: getRandomArrayElement(RANDOM_MESSAGES),
