@@ -17,6 +17,7 @@ const countCommentsElement = bigPicture.querySelector('.comments-count');
 
 // переменная для дубликата масива
 let actualComments = [];
+console.log('let-actualComments', actualComments);
 
 // прохожу по массиву комметариев пример: [{avatar: 'green', name: 'Жакуй Грин', message: 'Я - Жакуй гРИН пройдоха'}];
 const createCommentElements = (dataComment) => dataComment.map((value) => {
@@ -65,6 +66,7 @@ const uploadComments = () => {
 };
 
 const openFullSizeModal = (data) => {
+  console.log('что передается в дата', data);
   bigPicture.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   // добавляю вставки;
@@ -72,6 +74,7 @@ const openFullSizeModal = (data) => {
   bigPictureElement.setAttribute('src', data.url);
   likesCounterElement.textContent = data.likes;
   countCommentsElement.textContent = data.comments.length;
+  console.log('массив для дубликата', data.comments);
   blockComments.textContent = '';
   // вносим в переменную actualComments дубликат массива
   actualComments = data.comments.slice();

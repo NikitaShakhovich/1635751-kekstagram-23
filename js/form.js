@@ -1,11 +1,14 @@
-import {
-  COMMENT_LENGTH_EXCEEDED, HASHTAGS_EXCESS, HASHTAGS_NO_REPEAT, HASHTAGS_RULES,
-  HASHTAGS_TEST, MAX_HASHTAGS,
-  MAX_SYMBOL_DESCRIPTION,
-  MAX_VALUE,
-  MIN_VALUE,
-  SCALE_VALUE_STEP
-} from './constants.js';
+const HASHTAGS_TEST = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
+const MAX_HASHTAGS = 5;
+const HASHTAGS_RULES = 'Хэш-теги начинанаются с символа # и разделяются пробелами, должны состоять из букв и чисел, ' +
+  'длиной от 1-19 символов, максимальное количество хэш-тегов 5 штук.';
+const HASHTAGS_NO_REPEAT = 'Хэш-теги не должны поторяться';
+const HASHTAGS_EXCESS = 'Количетсво хэш-тегов не должно превышать 5 штук';
+const MAX_SYMBOL_DESCRIPTION = 140;
+const COMMENT_LENGTH_EXCEEDED = 'Длина комметария не может превышать 140 символов';
+const SCALE_VALUE_STEP = 25;
+const MAX_VALUE = 100;
+const MIN_VALUE = 25;
 
 const form = document.querySelector('.img-upload__form');
 const scaleSmaller = form.querySelector('.scale__control--smaller');
@@ -27,6 +30,7 @@ const onScaleButtonClick = (evt) => {
   if (evt.target.classList.contains('scale__control--bigger') && scaleValue < MAX_VALUE) {
     scaleValueElement.value = `${+scaleValue + SCALE_VALUE_STEP}%`;
   }
+
   if (evt.target.classList.contains('scale__control--smaller') && scaleValue > MIN_VALUE) {
     // если - да, присваиваю input value результат условия
     scaleValueElement.value = `${scaleValue - SCALE_VALUE_STEP}%`;
@@ -34,7 +38,7 @@ const onScaleButtonClick = (evt) => {
   photoUploadPreview.style.transform = `scale(${scaleValueElement.value})`;
 };
 
-const onChangeFilter = function (evt) {
+const onChangeFilter = (evt) => {
   const currentElement = evt.target;
   // если таргет, то проверяем матчес на соответствие
   if (currentElement && currentElement.matches('input[type="radio"]')) {
@@ -72,7 +76,7 @@ const onChangeFilter = function (evt) {
   }
 };
 
-const onValidateFormDescription = function () {
+const onValidateFormDescription = () => {
   if(inputDescription.value.length > MAX_SYMBOL_DESCRIPTION) {
     inputDescription.setCustomValidity(COMMENT_LENGTH_EXCEEDED);
   } else {
@@ -81,7 +85,7 @@ const onValidateFormDescription = function () {
   inputDescription.reportValidity();
 };
 
-const onValidateFormHashtags = function () {
+const onValidateFormHashtags = () => {
   // если значение инпута неравно пустой строке, возвращаем true
   if (inputHashtagsElement.value !== '') {
     // переменной хэштегс присваиваем значение ипута с убранными заглавными буквами, убранными пробелами в начале и конце
